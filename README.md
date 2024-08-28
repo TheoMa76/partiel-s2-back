@@ -42,7 +42,11 @@ Modifier cette ligne avec votre mot de passe de base de donnée et votre nom d'u
 DATABASE_URL="mysql://utilisateur_base_de_donnee:mdp_base_de_donnee@127.0.0.1:3306/partiel-s2-back-theo?charset=utf8mb4"
 
 Ensuite créer la base de donnée "partiel-s2-back-theo" en précisant ( par exemple si vous utilisez phpmyadmin ) utf8mb4_unicode_ci
+
+POUR BASE DE DONNEE
+###################################################################################################################################
 Executez cette commande dans le terminal : php bin/console doctrine:migrations:execute DoctrineMigrations\Version20240828125954
+###################################################################################################################################
 
 Une fois cela fait, pour lancer le projet, executez toujours dans un terminal :
 symfony server:start
