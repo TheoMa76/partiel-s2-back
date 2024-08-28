@@ -1,0 +1,83 @@
+{% block form %}
+<div class="bg-white shadow-md rounded-lg p-6">
+    {{ form_start(form) }}
+
+    {{ form_row(form.nom, {
+        'label': 'Nom de la commande',
+        'attr': {'class': 'w-full py-2 px-3 border rounded-lg'}
+    }) }}
+
+    {{ form_row(form.nomClient, {
+        'label': 'Nom du client',
+        'attr': {'class': 'w-full py-2 px-3 border rounded-lg'}
+    }) }}
+
+    <div class="mt-4">
+        <h2 class="text-lg font-medium text-gray-900">Matériels associés</h2>
+        <div id="commande-materiels-container" data-prototype="{{ form_widget(form.commandeMateriels.vars.prototype)|e('html_attr') }}">
+            {{ form_widget(form.commandeMateriels) }}
+        </div>
+        <button type="button" id="add-materiel" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 mt-2">
+            Ajouter un matériel
+        </button>
+    </div>
+
+    <div class="mt-6">
+        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+            {{ button_label ? button_label : 'Enregistrer' }}
+        </button>
+    </div>
+
+    {{ form_end(form) }}
+</div>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        const container = document.getElementById('commande-materiels-container');
+        const addButton = document.getElementById('add-materiel');
+        const prototype = container.getAttribute('data-prototype');
+        let index = container.children.length;
+
+        if (prototype === null) {
+            console.error('Prototype is undefined. Make sure it is properly set in the data attribute.');
+            return;
+        }
+
+        addButton.addEventListener('click', function () {
+            addNewMaterielField();
+        });
+
+        function addNewMaterielField() {
+            const newField = prototype.replace(/__name__/g, index);
+            const newElement = document.createElement('div');
+            newElement.classList.add('materiel-item');
+            newElement.innerHTML = newField;
+
+            const deleteButton = document.createElement('button');
+            deleteButton.type = 'button';
+            deleteButton.className = 'bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700 ml-4';
+            deleteButton.innerText = 'Supprimer';
+            deleteButton.addEventListener('click', function () {
+                container.removeChild(newElement);
+            });
+
+            newElement.appendChild(deleteButton);
+            container.appendChild(newElement);
+
+            index++;
+        }
+
+        document.querySelectorAll('.materiel-item').forEach(function(item) {
+            const deleteButton = document.createElement('button');
+            deleteButton.type = 'button';
+            deleteButton.className = 'bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700 ml-4';
+            deleteButton.innerText = 'Supprimer';
+            deleteButton.addEventListener('click', function () {
+                container.removeChild(item);
+            });
+
+            item.appendChild(deleteButton);
+        });
+    });
+</script>
+{% endblock %}

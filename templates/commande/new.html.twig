@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Commande{% endblock %}
+
+{% block body %}
+<div class="container mx-auto p-8">
+    <h1 class="text-3xl font-bold mb-6 text-center">Nouvelle Commande</h1>
+
+    {% include 'commande/_form.html.twig' with {'form': form, 'button_label': 'Créer'} %}
+    
+    <div class="mt-6 text-center">
+        <a href="{{ path('app_commande_index') }}" class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-700">
+            Retour aux listes
+        </a>
+    </div>
+</div>
+{% endblock %}

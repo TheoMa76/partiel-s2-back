@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande location | Lac de Poses{% endblock %}
+
+{% block body %}
+<div class="container mx-auto p-8">
+    <h1 class="text-3xl font-bold mb-6 text-center">Liste des Commandes</h1>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+            <thead class="bg-gray-800 text-white">
+                <tr>
+                    <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">ID</th>
+                    <th class="w-2/12 py-3 px-4 uppercase font-semibold text-sm">Nom</th>
+                    <th class="w-2/12 py-3 px-4 uppercase font-semibold text-sm">Prix Total</th>
+                    <th class="w-2/12 py-3 px-4 uppercase font-semibold text-sm">Created At</th>
+                    <th class="w-2/12 py-3 px-4 uppercase font-semibold text-sm">Updated At</th>
+                    <th class="w-3/12 py-3 px-4 uppercase font-semibold text-sm">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-700">
+            {% for commande in commandes %}
+                <tr class="bg-gray-100 border-b">
+                    <td class="py-3 px-4">{{ commande.id }}</td>
+                    <td class="py-3 px-4">{{ commande.nom }}</td>
+                    <td class="py-3 px-4">{{ commande.prixTotal }}</td>
+                    <td class="py-3 px-4">{{ commande.createdAt ? commande.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td class="py-3 px-4">{{ commande.updatedAt ? commande.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td class="py-3 px-4">
+                        <a href="{{ path('app_commande_show', {'id': commande.id}) }}" class="text-blue-500 hover:text-blue-700">Détail</a>
+                        <a href="{{ path('app_commande_edit', {'id': commande.id}) }}" class="text-green-500 hover:text-green-700 ml-4">Modifier</a>
+                        <form action="{{ path('app_commande_delete', {'id': commande.id}) }}" method="post" style="display:inline;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commande.id) }}">
+                            <button type="submit" class="text-red-500 hover:text-red-700 ml-4" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette commande ?');">
+                                Rendre la commande
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center py-4 text-gray-500">Aucune commande trouvée.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-6 flex justify-end">
+        <a href="{{ path('app_commande_new') }}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Créer une commande</a>
+    </div>
+</div>
+{% endblock %}

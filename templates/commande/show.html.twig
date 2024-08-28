@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la Commande{% endblock %}
+
+{% block body %}
+<div class="container mx-auto p-8">
+    <h1 class="text-3xl font-bold mb-6 text-center">Détails de la Commande</h1>
+
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Attribut</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valeur</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Id</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ commande.id }}</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Nom</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ commande.nom }}</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Prix Total</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ commande.prixTotal }}</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Date de Création</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ commande.createdAt ? commande.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Date de Mise à Jour</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ commande.updatedAt ? commande.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Nom du Client</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ commande.nomClient }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="text-xl font-semibold mt-8 mb-4">Matériels Associés</h2>
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Matériel</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantité</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for commandeMateriel in commande.commandeMateriels %}
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ commandeMateriel.materiel.name }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ commandeMateriel.quantite }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="2" class="px-6 py-4 text-center text-sm text-gray-500">Aucun matériel associé</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="mt-6 flex justify-between">
+            <a href="{{ path('app_commande_index') }}" class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-700">
+                Retour à la liste
+            </a>
+            <a href="{{ path('app_commande_edit', {'id': commande.id}) }}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+                Modifier
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

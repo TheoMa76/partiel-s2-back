@@ -1,0 +1,33 @@
+{{ form_start(form) }}
+
+<div class="mt-4">
+    {{ form_label(form.name, 'Nom du matériel', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+    {{ form_widget(form.name, {
+        'attr': {'class': 'w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500'}
+    }) }}
+    {{ form_errors(form.name) }}
+</div>
+
+<div class="mt-4">
+    {{ form_label(form.prix, 'Prix en € (les centimes ne sont pas accepté)', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+    {{ form_widget(form.prix, {
+        'attr': {'class': 'w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500'}
+    }) }}
+    {{ form_errors(form.prix) }}
+</div>
+
+<div class="mt-4">
+    {{ form_label(form.stock, 'Quantité', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+    {{ form_widget(form.stock, {
+        'attr': {'class': 'w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500'}
+    }) }}
+    {{ form_errors(form.stock) }}
+</div>
+
+<div class="mt-6">
+    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+        {{ button_label }}
+    </button>
+</div>
+
+{{ form_end(form) }}

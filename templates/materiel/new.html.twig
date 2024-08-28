@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Matériel{% endblock %}
+
+{% block body %}
+<div class="container mx-auto p-8">
+    <h1 class="text-3xl font-bold mb-6 text-center">Créer un nouveau matériel</h1>
+
+    <div class="bg-white shadow-md rounded-lg p-6">
+        {{ include('materiel/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+    </div>
+
+    <div class="mt-6 text-center">
+        <a href="{{ path('app_materiel_index') }}" class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-700">
+            Retour à la liste
+        </a>
+    </div>
+{% endblock %}
